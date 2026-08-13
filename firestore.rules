@@ -12,7 +12,8 @@ service cloud.firestore {
     function validSettings() {
       let data = request.resource.data;
       return data.keys().hasOnly([
-          'announcement', 'verificationDeadline', 'verificationOpen'
+          'announcement', 'verificationDeadline', 'verificationOpen',
+          'verificationMode'
         ])
         && (!('announcement' in data)
           || (data.announcement is string && data.announcement.size() <= 220))
@@ -20,7 +21,9 @@ service cloud.firestore {
           || (data.verificationDeadline is string
             && data.verificationDeadline.size() <= 10))
         && (!('verificationOpen' in data)
-          || data.verificationOpen is bool);
+          || data.verificationOpen is bool)
+        && (!('verificationMode' in data)
+          || data.verificationMode in ['open', 'test', 'closed']);
     }
 
     function validVerification(memberId) {
