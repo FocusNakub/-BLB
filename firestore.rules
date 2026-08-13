@@ -1,0 +1,99 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isCrewMember(memberId) {
+      return memberId in [
+        'focus', 'nen', 'ao', 'proy', 'tong', 'nick', 'moon',
+        'jee', 'lookpad', 'torik', 'tj', 'may', 'maggie', 'folk'
+      ];
+    }
+
+    function validSettings() {
+      let data = request.resource.data;
+      return data.keys().hasOnly([
+          'announcement', 'verificationDeadline', 'verificationOpen'
+        ])
+        && (!('announcement' in data)
+          || (data.announcement is string && data.announcement.size() <= 220))
+        && (!('verificationDeadline' in data)
+          || (data.verificationDeadline is string
+            && data.verificationDeadline.size() <= 10))
+        && (!('verificationOpen' in data)
+          || data.verificationOpen is bool);
+    }
+
+    function validVerification(memberId) {
+      let data = request.resource.data;
+      return isCrewMember(memberId)
+        && data.keys().hasAll([
+          'memberId', 'nick', 'role', 'birthDate',
+          'status', 'issues', 'verifiedAt'
+        ])
+        && data.keys().hasOnly([
+          'memberId', 'nick', 'role', 'birthDate',
+          'status', 'issues', 'adminNote', 'verifiedAt'
+        ])
+        && data.memberId == memberId
+        && data.nick is string && data.nick.size() <= 40
+        && data.role is string && data.role.size() <= 160
+        && data.birthDate is string && data.birthDate.size() <= 10
+        && data.status in ['pending', 'needs-review', 'correct']
+        && data.issues is list && data.issues.size() <= 7
+        && data.issues.toSet().hasOnly([
+          'name', 'role', 'birthDate', 'contact',
+          'health', 'food', 'emergency'
+        ])
+        && (!('adminNote' in data)
+          || (data.adminNote is string && data.adminNote.size() <= 300))
+        && data.verifiedAt is timestamp;
+    }
+
+    function validCrewProfile(memberId) {
+      let data = request.resource.data;
+      return isCrewMember(memberId)
+        && data.keys().hasAll([
+          'nick', 'name', 'english', 'role', 'phone',
+          'emergency', 'health', 'food', 'updatedAt'
+        ])
+        && data.keys().hasOnly([
+          'nick', 'name', 'english', 'role', 'phone',
+          'emergency', 'health', 'food', 'updatedAt'
+        ])
+        && data.nick is string && data.nick.size() <= 40
+        && data.name is string && data.name.size() <= 100
+        && data.english is string && data.english.size() <= 120
+        && data.role is string && data.role.size() <= 160
+        && data.phone is string && data.phone.size() <= 20
+        && data.phone.matches('^[0-9 -]{9,20}$')
+        && data.emergency is string && data.emergency.size() <= 100
+        && data.health is string && data.health.size() <= 250
+        && data.food is string && data.food.size() <= 250
+        && data.updatedAt is timestamp;
+    }
+
+    // เอกสารตั้งค่าของเว็บ บ่วง ลวง บาป
+    match /finalProject/blbCrewManagement {
+      allow read: if true;
+      allow create, update: if validSettings();
+      allow delete: if false;
+
+      match /verifications/{memberId} {
+        allow read: if isCrewMember(memberId);
+        allow create, update: if validVerification(memberId);
+        allow delete: if false;
+      }
+
+      match /crewMembers/{memberId} {
+        allow read: if isCrewMember(memberId);
+        allow create, update: if validCrewProfile(memberId);
+        allow delete: if false;
+      }
+    }
+
+    // ปิดทุกเส้นทางอื่นใน Firestore
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
