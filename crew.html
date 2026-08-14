@@ -21,6 +21,7 @@
       --line:#332e2a;--line-soft:#241f1c;
       --red:#81252b;--red-2:#a03139;--red-soft:#c89992;--red-glow:rgba(129,37,43,.35);
       --gold:#c9a06b;--gold-soft:#e3c896;
+      --brown:#6b4429;--brown-soft:#9c6a3f;--brown-bg:#241a10;--brown-line:#4a3520;
       --green:#5fae82;--green-bg:#152420;--green-line:#2c4638;
       --amber:#d9a256;--amber-bg:#2a2113;--amber-line:#4a3a20;
       --danger-bg:#2a1315;--danger-line:#4a2226;
@@ -138,8 +139,10 @@
     .personalAccess main{padding-top:44px}
 
     /* profile card */
-    .profile{display:none;text-align:left;margin-top:24px;width:min(100%,1080px);margin-left:auto;margin-right:auto;border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));border-radius:14px;padding:26px;box-shadow:var(--shadow-lg)}
+    .profile{position:relative;overflow:hidden;display:none;text-align:left;margin-top:24px;width:min(100%,1080px);margin-left:auto;margin-right:auto;border:1px solid var(--line);background:linear-gradient(165deg,var(--ink-3),var(--ink-2));border-radius:14px;padding:26px;box-shadow:var(--shadow-lg)}
+    .profile::before{content:"";position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;pointer-events:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>")}
     .profile.show{display:block}
+    .profile>*{position:relative}
     .profileTop{display:flex;align-items:start;justify-content:space-between;gap:18px;padding-bottom:20px;border-bottom:1px solid var(--line)}
     .avatar{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--ink-4);border:1px solid var(--gold);color:var(--gold-soft);font-weight:700;flex:0 0 auto;font-family:"Chonburi",serif}
     .identity{display:flex;gap:13px;min-width:0}
@@ -154,7 +157,8 @@
 
     .dataGrid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
     .dataCell{border-bottom:1px solid var(--line-soft);padding:14px 0 14px}
-    .dataCell.wide{grid-column:1/-1;margin-top:6px;padding:14px 15px 18px;background:var(--ink-3);border:1px solid var(--line);border-radius:8px}
+    .dataCell.wide{grid-column:1/-1;margin-top:6px;padding:14px 15px 18px 13px;background:var(--brown-bg);border:1px solid var(--brown-line);border-left:2px solid var(--brown-soft);border-radius:8px}
+    .dataCell.wide .infoLabel{color:var(--gold-soft)}
     .dataCell.priority{background:var(--danger-bg);border-left:2px solid var(--red);padding-left:13px;padding-right:10px;border-bottom-color:transparent}
     .dataCell.priority .infoLabel{color:#e0a4a8}
     .infoLabel{color:var(--gold);text-transform:uppercase;letter-spacing:.13em;font-size:9px;font-weight:700;margin:0 0 6px}
