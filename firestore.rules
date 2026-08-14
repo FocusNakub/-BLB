@@ -30,17 +30,22 @@ service cloud.firestore {
       let data = request.resource.data;
       return isCrewMember(memberId)
         && data.keys().hasAll([
-          'memberId', 'nick', 'role', 'birthDate',
+          'memberId', 'nick', 'role', 'email', 'birthDate',
           'status', 'issues', 'verifiedAt'
         ])
         && data.keys().hasOnly([
-          'memberId', 'nick', 'role', 'birthDate',
+          'memberId', 'nick', 'role', 'email', 'birthDate',
           'status', 'issues', 'adminNote', 'verifiedAt'
         ])
         && data.memberId == memberId
         && data.nick is string && data.nick.size() <= 40
         && data.role is string && data.role.size() <= 160
+        && data.email is string && data.email.size() <= 120
+        && (data.status == 'pending'
+          || (data.email.size() >= 5
+            && data.email.matches('^[^@ ]+@[^@ ]+[.][^@ ]+$')))
         && data.birthDate is string && data.birthDate.size() <= 10
+        && (data.status == 'pending' || data.birthDate.size() == 10)
         && data.status in ['pending', 'needs-review', 'correct']
         && data.issues is list && data.issues.size() <= 7
         && data.issues.toSet().hasOnly([
