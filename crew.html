@@ -463,6 +463,33 @@
       .accessTitle,.accessLabel,.accessContent,.accessPoster::after,.otpDigit.filled,.avatar,.status.review,.pill.review,.toast::before,.gateAnnouncementBlock:not([hidden]),.notice.show,.profileOpsAnnouncement:not([hidden]),.gateStatusCard.isClosed,.profileOpsCard.isClosed,.noticeLabel::before,.profileOpsAnnouncement b::before{animation:none!important}
     }
 
+    @media(max-width:760px){
+      html{scroll-behavior:auto}
+      body{width:100%;max-width:100%;overflow-x:clip}
+      .accessGate{min-height:100svh;overflow:visible}
+      .accessPoster{height:30svh;min-height:230px;max-height:280px}
+      .accessContent{min-width:0;padding:28px 20px max(48px,calc(32px + env(safe-area-inset-bottom)));animation:none}
+      .accessInner{min-width:0}
+      .accessTitle,.accessLabel,.accessPoster::after,.gateAnnouncementBlock:not([hidden]),.gateStatusCard.isClosed{animation:none}
+      .backToWork{margin-bottom:26px}
+      .gateStatusTop{min-width:0}
+      .gateStatusTop>div{min-width:0}
+      .otpRow{grid-template-columns:repeat(4,minmax(0,1fr))}
+      dialog{max-width:calc(100% - 20px)}
+      dialog.adminMode{width:calc(100% - 12px);max-height:calc(100dvh - 12px)}
+      .adminMode .modal{height:calc(100dvh - 12px);max-height:calc(100dvh - 12px)}
+      .adminMode .adminPanel.open{scrollbar-gutter:auto;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+    }
+    @media(max-width:360px){
+      .accessTitle{font-size:40px}
+      .gateStatusTop{display:block}
+      .gateStatusBadge{margin-top:10px}
+      .adminStatusBar{display:block}
+      .adminStatusBar .openState{margin-top:8px}
+      .adminButtons{grid-template-columns:1fr}
+      .adminButtons .danger{grid-column:auto}
+    }
+
   </style>
 
 </head>

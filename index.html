@@ -23,6 +23,19 @@
     @media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto}.heroArt{grid-row:1;min-height:70svh}.heroArt::before{background:linear-gradient(180deg,rgba(0,0,0,.76) 0,transparent 18%),linear-gradient(0deg,#0b0a09 0,transparent 48%)}.heroCopy{grid-row:2;padding:46px 24px 70px;align-items:start}.headInner{width:calc(100% - 32px)}.aboutInner{grid-template-columns:1fr;gap:24px}.about{padding:88px 24px}.posters{padding:86px 20px 112px}}
     @media(max-width:620px){.siteHead{height:66px}.nav a:not(.crewLink){display:none}.nav .crewLink{margin:0}.heroArt{min-height:61svh}.heroArt img{object-position:center;animation:none}.heroCopy{padding-top:32px}.hero h1{font-size:48px}.tagline{font-size:15px}.filmMeta{gap:14px;flex-wrap:wrap}.actions{display:grid;grid-template-columns:1fr}.button{width:100%}.about h2{font-size:36px}.facts{grid-template-columns:1fr;gap:12px}.posterGrid{grid-template-columns:1fr;gap:50px}.posterFigure:nth-child(even){margin-top:0}.postersHead{display:block}.postersHead p{margin-top:10px}.closingInner{display:block}.closing .button{margin-top:24px}.footInner{display:block}.footInner span{display:block;margin-bottom:5px}.viewerInner{grid-template-columns:52px 1fr 52px;grid-template-rows:60px 1fr 48px}.viewerTop{padding:0 12px}.viewerImageWrap{padding:10px 0}.viewerNav{font-size:24px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0ms!important}[data-reveal],.heroInner>*{opacity:1!important;transform:none!important}.posterFigure:nth-child(even){transform:none}}
+    @media(max-width:620px){
+      html{scroll-behavior:auto}
+      body{width:100%;max-width:100%;overflow-x:clip}
+      .hero{min-height:0}
+      .heroArt{height:58svh;min-height:420px;max-height:520px}
+      .heroCopy{padding:30px 24px 58px}
+      .heroInner>*{opacity:1;transform:none;animation:none}
+      .js [data-reveal],[data-reveal]{opacity:1;transform:none;transition:none}
+      .about{padding:72px 24px}
+      .posters{padding:72px 20px 92px}
+      .closing{padding:64px 24px}
+      .heroCount::before{animation:none}
+    }
   </style>
 </head>
 <body>
