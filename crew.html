@@ -164,8 +164,11 @@
     .contactLink{color:var(--paper);text-decoration-color:var(--muted-2);text-underline-offset:3px}
     .contactLink:hover{text-decoration-color:var(--red-soft)}
     .birthHelp{color:var(--muted);font-size:11px;margin-top:7px}
+    .dateField{display:flex;width:100%;min-width:0;max-width:100%;overflow:hidden}
     .dateInput,.emailInput{display:block;width:100%;min-width:0;max-width:100%;border:1px solid var(--line);border-radius:6px;background:var(--ink);color:var(--paper);padding:11px 12px;outline:0;color-scheme:dark;font-size:14px;min-height:44px}
-    .dateInput::-webkit-date-and-time-value{min-width:0;text-align:left}
+    .dateField .dateInput{flex:1 1 0;width:0;inline-size:0;min-inline-size:0;max-inline-size:100%}
+    .dateInput::-webkit-date-and-time-value{min-width:0;margin:0;text-align:left}
+    .dateInput::-webkit-datetime-edit{min-width:0;padding:0}
     .dateInput:focus,.emailInput:focus{border-color:var(--red-soft);box-shadow:0 0 0 3px var(--red-glow)}
     .dateInput[aria-invalid="true"],.emailInput[aria-invalid="true"]{border-color:var(--red-2);box-shadow:0 0 0 3px var(--red-glow)}
 
@@ -392,7 +395,7 @@
       .status{display:inline-block;margin:14px 0 0}
       .profileStatusGroup{text-align:left}
       .dataGrid{grid-template-columns:1fr}
-      .dataCell.wide{grid-column:auto}
+      .dataCell.wide{grid-column:auto;max-width:100%;overflow:hidden;padding-left:12px;padding-right:12px}
       .dateInput,.emailInput{font-size:16px}
       .verifyActions,.issueActions{display:block}
       .verifyActions button,.issueActions button{width:100%;margin-top:8px}
@@ -561,6 +564,11 @@
     emailCell.className='dataCell wide';
     emailCell.innerHTML='<label class="infoLabel" for="crewEmail">อีเมล <span>(จำเป็น)</span></label><input class="emailInput" id="crewEmail" type="email" inputmode="email" autocomplete="email" maxlength="120" required aria-describedby="emailHelp" placeholder="name@example.com"><div class="birthHelp" id="emailHelp">ใช้สำหรับการติดต่อของกองถ่าย</div>';
     $('birthDate').closest('.dataCell').before(emailCell);
+    const birthDateInput=$('birthDate');
+    const dateField=document.createElement('div');
+    dateField.className='dateField';
+    birthDateInput.before(dateField);
+    dateField.append(birthDateInput);
     const adminEmailField=document.createElement('div');
     adminEmailField.className='editorField';
     adminEmailField.innerHTML='<label for="editEmail">อีเมล</label><input id="editEmail" type="email" inputmode="email" autocomplete="off" maxlength="120" placeholder="name@example.com">';
