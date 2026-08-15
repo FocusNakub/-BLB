@@ -152,8 +152,8 @@
     .status.review{color:var(--amber);border-color:var(--amber-line);background:var(--amber-bg)}
     .lastUpdated{display:block;color:var(--muted-2);font-size:11px;margin-top:6px}
 
-    .dataGrid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
-    .dataCell{border-bottom:1px solid var(--line-soft);padding:14px 0 14px}
+    .dataGrid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;min-width:0}
+    .dataCell{border-bottom:1px solid var(--line-soft);padding:14px 0 14px;min-width:0}
     .dataCell.wide{grid-column:1/-1;margin-top:6px;padding:14px 15px 18px;background:var(--ink-3);border:1px solid var(--line);border-radius:8px}
     .dataCell.priority{background:var(--danger-bg);border-left:2px solid var(--red);padding-left:13px;padding-right:10px;border-bottom-color:transparent}
     .dataCell.priority .infoLabel{color:#e0a4a8}
@@ -164,7 +164,8 @@
     .contactLink{color:var(--paper);text-decoration-color:var(--muted-2);text-underline-offset:3px}
     .contactLink:hover{text-decoration-color:var(--red-soft)}
     .birthHelp{color:var(--muted);font-size:11px;margin-top:7px}
-    .dateInput,.emailInput{width:100%;border:1px solid var(--line);border-radius:6px;background:var(--ink);color:var(--paper);padding:11px 12px;outline:0;color-scheme:dark;font-size:14px;min-height:44px}
+    .dateInput,.emailInput{display:block;width:100%;min-width:0;max-width:100%;border:1px solid var(--line);border-radius:6px;background:var(--ink);color:var(--paper);padding:11px 12px;outline:0;color-scheme:dark;font-size:14px;min-height:44px}
+    .dateInput::-webkit-date-and-time-value{min-width:0;text-align:left}
     .dateInput:focus,.emailInput:focus{border-color:var(--red-soft);box-shadow:0 0 0 3px var(--red-glow)}
     .dateInput[aria-invalid="true"],.emailInput[aria-invalid="true"]{border-color:var(--red-2);box-shadow:0 0 0 3px var(--red-glow)}
 
@@ -392,6 +393,7 @@
       .profileStatusGroup{text-align:left}
       .dataGrid{grid-template-columns:1fr}
       .dataCell.wide{grid-column:auto}
+      .dateInput,.emailInput{font-size:16px}
       .verifyActions,.issueActions{display:block}
       .verifyActions button,.issueActions button{width:100%;margin-top:8px}
       .checks{grid-template-columns:1fr}
